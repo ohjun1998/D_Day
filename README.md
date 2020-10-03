@@ -1,0 +1,257 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width
+   , initial-scale=1.0">
+        <title>DDAY</title>
+        
+    </head>
+    <body id = 'bg'>
+        
+            
+                <meta charset="utf-8">
+                <title>D-DAY</title>
+                <style>
+                    body{
+                        background-image: url(https://x86.co.kr/files/attach/images/2416104/504/236/003/9016119239d4d1dbf2efe25f40120eda.jpg);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+                    header{
+                        text-align: center;
+                        border: 1px solid black;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        left: 0;
+                        height: 50px;
+                        background-color: black;
+                        color: aliceblue;
+                        
+                    }
+                    footer{
+                        text-align: center;
+                        border: 1px solid black;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 50px;
+                        background-color: black;
+                        color: aliceblue;
+                    
+                    }
+                    h1, h5, h6, h3{
+                        text-align: center;
+                    }
+                    div {
+                        border-style: solid;
+                        border-width: 2px;
+                        max-width: 445px;
+                        padding: 10px;
+                        margin: 100px auto;
+                        border-radius: 5px;
+                    }
+                    .between {
+                        margin-bottom: 2px;
+                    }
+                       
+
+                    
+                    input {
+                        width: 60px;
+                        height: 30px;
+                        background-color:darkgray;
+                        border-radius: 5px;
+                    }
+                    button {
+                        width: 445px;
+                        height: 30px;
+                        margin-top: 10px;
+                        background-color:black;
+                        color: aliceblue;
+                        border-radius: 5px;
+
+                    }
+                    table,
+                    td {
+                        border: 1px solid black;
+                        width: 445px;
+                        height: 30px;
+                        border-collapse: collapse;
+                        text-align: center;
+                        border-radius: 5px;
+                        background-color: black;
+                        color: aliceblue;
+                        
+                    }
+                    .show {
+                        border: 0;
+                    }
+                    .small_show {
+                        width: 445px;
+                    }
+                    input[type="number"]::-webkit-outer-spin-button,
+                    input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                    }
+                    video{
+                        width: 100%;
+                        
+                    }
+                    
+                </style>
+            
+            <header><h3>D-DAY</h3></header>
+            <section>
+    
+            <div id="table_print" class="show"></div>
+            <div id="unknown">
+            
+
+                <h1>D-DAY</h1>
+                <input type="number" value="년도" id="year">년
+                <input type="number" value="월" id="month">월
+                <input type="number" value="일" id="day">일
+                <input type="number" value="시간" id="hour">시
+                <input type="number" value="분" id="minute">분
+                <button onclick="btn()">클릭</button>
+                <h5>시간은 0~23 분은 0~59</h5>
+             </section>
+
+                <script>
+
+                    function btn() {
+                        var timeout = setInterval(second, 1000);
+                        function second() {
+
+                            var time_now = new Date();
+
+                          
+
+                            var want_year = document
+                                .getElementById('year')
+                                .value;
+                            if (want_year < time_now.getFullYear()) { //년도는 현재년도보다 작을 수 없는 예외의 경우
+                                alert("년도를 다시 입력하시오.");
+                                clearInterval(timeout);
+
+                                return false;
+
+                            }
+
+                            var want_month = document
+                                .getElementById('month')
+                                .value;
+
+                            if((want_year == time_now.getFullYear()) && (want_month > 12 || want_month < time_now.getMonth()+1)){
+                           
+                                alert("달을 다시 입력하시오."); //년도가 지정한 년도랑 같으면 달은 현재 달보다 같거나 커야되고 13이 넘으면 안됌.
+                                clearInterval(timeout);
+
+                                return false;
+
+
+                            
+                            } else if ((want_year > time_now.getFullYear()) && (want_month > 12 || want_month < 1)) {
+                                alert("달을 다시 입력하시오."); //년도가 지정한 년 도보다  크면 정상적으로 0~12달 중에 선택
+                                clearInterval(timeout);
+
+                                return false;
+                            }
+
+                            var want_day = document
+                                .getElementById('day')
+                                .value;
+                            var last_day = new Date(want_year, want_month, 0).getDate(); //특정 달을 지목하면 0~특정달 마지막 일수
+                            if (want_day < 1 || want_day > last_day) {
+                                alert("일을 다시 입력하시오.");
+                                clearInterval(timeout);
+
+                                return false;
+                            }
+
+                            var want_hour = document
+                                .getElementById('hour')
+                                .value;
+                            if (want_hour < 0 || want_hour > 23) {
+                                alert("시간을 다시 입력하시오.");
+                                clearInterval(timeout);
+
+                                return false;
+                            }
+
+                            var want_minute = document
+                                .getElementById('minute')
+                                .value;
+                            if (want_minute < 0 || want_minute > 59) {
+                                alert("분을 다시 입력하시오.");
+                                clearInterval(timeout);
+
+                                return false;
+                            }
+
+                            var want_time = new Date(
+                                want_year,
+                                want_month - 1,
+                                want_day,
+                                want_hour,
+                                want_minute
+                            ); 
+
+                            var count_time = want_time - time_now;
+
+                            var count_day = Math.floor(count_time / (1000 * 60 * 60 * 24));
+                            var count_hour = Math.floor(count_time / (1000 * 60 * 60) % 24); 
+                            var count_minute = Math.floor(count_time / (1000 * 60) % 60);
+                            var count_second = Math.floor(count_time / (1000) % 60);
+
+                            if (count_time < 0) {
+                                clearInterval(timeout);
+
+                                document
+                                    .getElementById("table_print")
+                                    .innerHTML = "<table><tr><td>D-DAY</td></tr></table></video> <button class='small_show' onClick = window.location.reload();>종료</a>"
+                                window.open('DDay.html', 'DDAY', "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=700px, height=400px");   
+                            
+
+                            } else {
+                                document
+                                    .getElementById("table_print")
+                                    .innerHTML = "<h6>D-DAY</h6><table class = 'between'><tr><td>" + count_day + "일</td><td>" + count_hour + "시간</td><td>" + count_minute + "분</td><td>" + count_second + "초</td></tr></table><h6>선택한 시간</h6><table><tr><td>" + want_year + "년</td><td>" + want_month + "월</td><td>" + want_day + "일</td><td>" + want_hour + "시</td><td>" + want_minute + "분</td></tr></table><button class='small_show' onClick = window.location.reload();>뒤로가기</a>"
+
+                            }
+
+                            document.getElementById("unknown").style.display="none";
+
+
+                        }
+                    }
+                    var now_timeout = setInterval(count, 1000);
+                    
+                    
+                    function count(){
+                    var show_time = new Date();
+
+                    var now_year = show_time.getFullYear();
+                    var now_month = show_time.getMonth()+1;
+                    var now_day = show_time.getDate();
+                    var now_hour = show_time.getHours();
+                    var now_minute = show_time.getMinutes();
+                    var now_second = show_time.getSeconds();
+                    var now_dayoftheweek = show_time.getDay();
+
+                    var week = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
+
+                    document.getElementById("now_time").innerHTML = now_year+":"+now_month+":"+now_day+"<br>"+now_hour+":"+now_minute+":"+now_second+"<br>"+week[now_dayoftheweek];
+                    }
+                </script>
+
+            </div>
+            <h3 id="now_time"></h3>
+            <footer><h3>make by o.j</h3></footer>
+
+        </body>
+
+    </html>
